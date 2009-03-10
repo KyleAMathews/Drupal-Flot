@@ -1,5 +1,5 @@
 <?php
-// $Id: flot.module,v 1.2.2.1 2008/10/23 12:56:10 jmiccolis Exp $
+// $Id: flot.module,v 1.2.2.2 2009/03/10 16:09:51 jmiccolis Exp $
 
 /**
  * Implementation of hook_theme.
@@ -39,7 +39,7 @@ function theme_flot_graph($element, $data = array(), $options = array(), $loader
   static $n;
   if (!isset($element['id'])) {
     $n++;
-    $element['id'] = 'flot-auto-identfier-'. $n;
+    $element['id'] = 'flot-auto-identifier-'. $n;
   }
 
   if (!isset($element['style'])) {

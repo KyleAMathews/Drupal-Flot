@@ -1,4 +1,4 @@
-// $Id: README.txt,v 1.1.2.1 2008/10/23 12:56:10 jmiccolis Exp $
+// $Id: README.txt,v 1.1.2.2 2009/03/10 16:09:51 jmiccolis Exp $
 
 CONTENTS OF THIS FILE
 ---------------------
@@ -44,3 +44,13 @@ to mimic the main $.plot() function that flot provides. Think of it as a php
 wrapper. It takes the same arguments in the same order as $.plot and returns
 the placeholder element that flot will use to make it's graph. Please refer to
 API.txt included in the flot package for more details on how to make flot work.
+
+To get started quickly try the following example:
+
+<?php
+
+$d1 = new flotData(array(array(0, 1), array(4, 8), array(8, 5)));
+$d2 = new flotData(array(array(0, 8), array(3, 5), array(8, 0.5)));
+print theme('flot_graph', array(), array($d1, $d2));
+
+?>
