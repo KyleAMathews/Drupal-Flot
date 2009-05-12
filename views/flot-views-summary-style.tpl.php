@@ -1,5 +1,5 @@
 <?php
-// $Id: flot-views-summary-style.tpl.php,v 1.1.2.1 2009/05/07 20:10:33 yhahn Exp $
+// $Id: flot-views-summary-style.tpl.php,v 1.1.2.2 2009/05/12 03:19:43 yhahn Exp $
 
 /**
  * @file flot-views-summary-style.tpl.php
@@ -11,6 +11,6 @@
  */
 ?>
 
-<div class="views-flot <?php print $chart_type ?>">
+<div class="views-flot">
   <?php print theme('flot_graph', $element, $data, $options); ?>
 </div>
