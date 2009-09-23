@@ -1,11 +1,10 @@
 <?php
-// $Id: flot_views_plugin_summary_style.inc,v 1.1.2.2 2009/09/21 17:00:41 yhahn Exp $
+// $Id: flot_views_plugin_summary_style.inc,v 1.1.2.3 2009/09/23 14:14:56 yhahn Exp $
 
 /**
  * Summary style plugin for flot.
  */
 class flot_views_plugin_summary_style extends flot_views_plugin_style {
-
   function preprocess(&$vars) {
     $view = $this->view;
     $argument = $view->argument[$view->build_info['summary_level']];
