@@ -1,5 +1,5 @@
 <?php
-// $Id: flot_views_plugin_style.inc,v 1.1.2.2 2009/11/30 15:30:51 yhahn Exp $
+// $Id: flot_views_plugin_style.inc,v 1.1.2.3 2010/01/17 18:35:54 yhahn Exp $
 
 class flot_views_plugin_style extends views_plugin_style {
   function option_definition() {
@@ -173,17 +173,19 @@ class flot_views_plugin_style extends views_plugin_style {
         break;
     }
 
-    $domain = array(current(reset($ticks)), current(end($ticks)));
-    switch ($options['x']['granularity']) {
-      case 'endpoints':
-        $style->axis_ticks('xaxis', $domain);
-        break;
-      case 'auto':
-        $style->axis_ticks('xaxis', $ticks);
-        break;
-      default:
-        $style->axis_range('xaxis', $domain, $options['x']['granularity']);
-        break;
+    if (count($ticks) > 1) {
+      $domain = array(reset($ticks), end($ticks));
+      switch ($options['x']['granularity']) {
+        case 'endpoints':
+          $style->axis_ticks('xaxis', $domain);
+          break;
+        case 'auto':
+          $style->axis_ticks('xaxis', $ticks);
+          break;
+        default:
+          $style->axis_range('xaxis', $domain, $options['x']['granularity']);
+          break;
+      }
     }
 
     $vars['options'] = $style;
