@@ -1,5 +1,5 @@
 <?php
-// $Id: flot_views_plugin_style.inc,v 1.1.2.3 2010/01/17 18:35:54 yhahn Exp $
+// $Id: flot_views_plugin_style.inc,v 1.1.2.4 2010/03/31 15:06:05 yhahn Exp $
 
 class flot_views_plugin_style extends views_plugin_style {
   function option_definition() {
@@ -160,20 +160,25 @@ class flot_views_plugin_style extends views_plugin_style {
       $range['max'] = floor($range['max'] + ($range['max'] * .1));
     }
 
-    switch ($options['y']['granularity']) {
-      case 'endpoints':
-        $yticks = array(array($range['min'], $range['min']), array($range['max'], $range['max']));
-        $style->axis_ticks('yaxis', $yticks);
-        break;
-      case 'auto':
-        $style->axis_range('yaxis', $range);
-        break;
-      default:
-        $style->axis_range('yaxis', $range, $options['y']['granularity']);
-        break;
+    if (!empty($options['y']['label'])) {
+      switch ($options['y']['granularity']) {
+        case 'endpoints':
+          $yticks = array(array($range['min'], $range['min']), array($range['max'], $range['max']));
+          $style->axis_ticks('yaxis', $yticks);
+          break;
+        case 'auto':
+          $style->axis_range('yaxis', $range);
+          break;
+        default:
+          $style->axis_range('yaxis', $range, $options['y']['granularity']);
+          break;
+      }
+    }
+    else {
+      $style->yaxis->ticks = array();
     }
 
-    if (count($ticks) > 1) {
+    if (count($ticks) > 1 && !empty($options['x']['label'])) {
       $domain = array(reset($ticks), end($ticks));
       switch ($options['x']['granularity']) {
         case 'endpoints':
@@ -183,9 +188,13 @@ class flot_views_plugin_style extends views_plugin_style {
           $style->axis_ticks('xaxis', $ticks);
           break;
         default:
-          $style->axis_range('xaxis', $domain, $options['x']['granularity']);
+          $domain_range = array($domain[0][0], $domain[1][0]);
+          $style->axis_range('xaxis', $domain_range, $options['x']['granularity']);
           break;
       }
+    }
+    else {
+      $style->xaxis->ticks = array();
     }
 
     $vars['options'] = $style;
