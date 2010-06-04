@@ -1,5 +1,5 @@
 <?php
-// $Id: flot_views_plugin_style.inc,v 1.1.2.6 2010/04/01 05:26:45 yhahn Exp $
+// $Id: flot_views_plugin_style.inc,v 1.1.2.7 2010/06/04 21:19:23 yhahn Exp $
 
 class flot_views_plugin_style extends views_plugin_style {
   function option_definition() {
@@ -179,12 +179,18 @@ class flot_views_plugin_style extends views_plugin_style {
       // Otherwise, check that the view exists.
       else if ($view = views_get_view($view_name)) {
         $view->set_display($display_name);
+
+        // If this display inherits arguments, pass the parent view's args.
+        if ($view->display_handler->get_option('inherit_arguments')) {
+          $view->set_arguments($this->view->args);
+        }
+
         $view->execute();
         $view->init_style();
         $layer = $this->build_layer($view, $view->result, $view->get_title());
       }
 
-      if ($layer) {
+      if ($layer && !empty($layer['series']->data)) {
         // Merging series and titles is simple.
         $merged['series'][] = $layer['series'];
         $merged['titles'][] = $layer['title'];
