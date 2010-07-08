@@ -53,8 +53,8 @@ class flot_handler_field_datapoint extends views_handler_field  {
 
     // Get field options and generate subsequent options based on class
     foreach (views_fetch_fields($this->view->base_table, 'field') as $field_id => $field_info) {
-      $form['series']['field']['#options'][$field_id] = !empty($field_info['title']) ? $field_info['title'] : $field_id;
-      $form['value']['field']['#options'][$field_id] = !empty($field_info['title']) ? $field_info['title'] : $field_id;
+      $form['series']['field']['#options'][$field_id] = $field_id;
+      $form['value']['field']['#options'][$field_id] = $field_id;
 
       list($table, $field) = explode('.', $field_id);
       $handler = get_class(views_get_handler($table, $field, 'field'));
