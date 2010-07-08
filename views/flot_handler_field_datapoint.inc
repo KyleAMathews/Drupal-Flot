@@ -241,13 +241,13 @@ class flot_handler_field_datapoint extends views_handler_field  {
       // Fill in default values in processed array.
       $processed = array();
       while ($start < $end) {
-        $start = strtotime($units[$grouping], $start);
         $start_formatted = $this->format_date($start, $grouping);
         $blank = new stdClass();
         $blank->{$this->series_field} = $start;
         $blank->{$this->value_field} = 0;
         $blank->values = array();
         $processed[$start_formatted] = $blank;
+        $start = strtotime($units[$grouping], $start);
       }
       foreach ($result as $row) {
         $timestamp_formatted = $this->format_date($row->{$this->series_field}, $grouping);
