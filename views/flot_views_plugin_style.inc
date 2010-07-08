@@ -104,6 +104,37 @@ class flot_views_plugin_style extends views_plugin_style {
       '#default_value' => $this->options['y']['custom-y-min'],
     );
 
+    $default_colors = array('#666', '#999', '#ccc');
+    $layer_0 = (isset($this->options['colors']['1'])) ? $this->options['colors']['1'] : '#666';
+    $layer_1 = (isset($this->options['colors']['2'])) ? $this->options['colors']['2'] : '#999';
+    $layer_2 = (isset($this->options['colors']['3'])) ? $this->options['colors']['3'] : '#ccc';
+
+    $form['colors'] = array(
+      '#tree' => TRUE,
+      '#type' => 'fieldset',
+      '#title' => t('Layer Colors'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
+    $form['colors']['0'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Layer 1'),
+      '#size' => 15,
+      '#default_value' => $layer_0,
+    );
+    $form['colors']['1'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Layer 2'),
+      '#size' => 15,
+      '#default_value' => $layer_1,
+    );
+    $form['colors']['2'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Layer 3'),
+      '#size' => 15,
+      '#default_value' => $layer_2,
+    );
+
     // Views
     $layers = $this->get_views_by_style();
     unset($layers["{$this->view->name}:{$this->view->current_display}"]);
@@ -327,6 +358,11 @@ class flot_views_plugin_style extends views_plugin_style {
     else {
       $style->xaxis->ticks = array();
     }
+
+    // Set colors.
+    $style->colors[0] = $options['colors']['0'];
+    $style->colors[1] = $options['colors']['1'];
+    $style->colors[2] = $options['colors']['2'];
 
     $vars['options'] = $style;
   }
