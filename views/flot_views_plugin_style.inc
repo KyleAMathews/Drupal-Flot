@@ -260,7 +260,12 @@ class flot_views_plugin_style extends views_plugin_style {
 
     // Pad Y axis if necessary
     if ($options['y']['pad']) {
-      $range['min'] = ceil($range['min'] + ($range['min'] * .1));
+      if ($range['min'] > 0) {
+        $range['min'] = 0;
+      }
+      else {
+        $range['min'] = ceil($range['min'] + ($range['min'] * .1));
+      }
       $range['max'] = floor($range['max'] + ($range['max'] * .1));
     }
 
