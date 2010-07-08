@@ -89,6 +89,20 @@ class flot_views_plugin_style extends views_plugin_style {
       '#title' => t('Add headroom above points'),
       '#default_value' => $this->options['y']['pad'],
     );
+    $form['y']['custom-y-max'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Y Max'),
+      '#size' => 15,
+      '#description' => t("(Optional) Enter the Y axis Max."),
+      '#default_value' => $this->options['y']['custom-y-max'],
+    );
+    $form['y']['custom-y-min'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Y Min'),
+      '#size' => 15,
+      '#description' => t("(Optional) Enter the Y axis Min."),
+      '#default_value' => $this->options['y']['custom-y-min'],
+    );
 
     // Views
     $layers = $this->get_views_by_style();
@@ -267,6 +281,14 @@ class flot_views_plugin_style extends views_plugin_style {
         $range['min'] = ceil($range['min'] + ($range['min'] * .1));
       }
       $range['max'] = floor($range['max'] + ($range['max'] * .1));
+    }
+
+    // If a custom y-axis range is set, change to those values.
+    if (!empty($this->options['y']['custom-y-max'])) {
+      $range['max'] = $this->options['y']['custom-y-max'];
+    }
+    if (!empty($this->options['y']['custom-y-min'])) {
+      $range['min'] = $this->options['y']['custom-y-min'];
     }
 
     if (!empty($options['y']['label'])) {
