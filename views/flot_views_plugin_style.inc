@@ -315,10 +315,10 @@ class flot_views_plugin_style extends views_plugin_style {
     }
 
     // If a custom y-axis range is set, change to those values.
-    if (isset($this->options['y']['custom-y-max'])) {
+    if (!empty($this->options['y']['custom-y-max'])) {
       $range['max'] = $this->options['y']['custom-y-max'];
     }
-    if (isset($this->options['y']['custom-y-min'])) {
+    if (!empty($this->options['y']['custom-y-min'])) {
       $range['min'] = $this->options['y']['custom-y-min'];
     }
 
