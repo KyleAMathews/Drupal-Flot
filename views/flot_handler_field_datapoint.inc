@@ -72,6 +72,7 @@ class flot_handler_field_datapoint extends views_handler_field  {
               'Y-m-d-6' => t('6 hours'),
               'Y-m-d-A' => t('12 hours'),
               'Y-m-d' => t('Day'),
+              'Y-W' => t('Week'),
               'Y-m' => t('Month'),
               'Y' => t('Year'),
             ),
@@ -230,6 +231,7 @@ class flot_handler_field_datapoint extends views_handler_field  {
         'Y-m-d-6' => '+6 hours',
         'Y-m-d-A' => '+12 hours',
         'Y-m-d' => '+1 day',
+        'Y-W' => '+1 week',
         'Y-m' => '+1 month',
         'Y' => '+1 year',
       );
