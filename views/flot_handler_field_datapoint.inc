@@ -249,6 +249,7 @@ class flot_handler_field_datapoint extends views_handler_field  {
         $processed[$start_formatted] = $blank;
         $start = strtotime($units[$grouping], $start);
       }
+
       foreach ($result as $row) {
         $timestamp_formatted = $this->format_date($row->{$this->series_field}, $grouping);
         if (isset($processed[$timestamp_formatted])) {
