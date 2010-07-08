@@ -246,12 +246,27 @@ class flot_handler_field_datapoint extends views_handler_field  {
         $blank = new stdClass();
         $blank->{$this->series_field} = $start;
         $blank->{$this->value_field} = 0;
+        $blank->values = array();
         $processed[$start_formatted] = $blank;
       }
       foreach ($result as $row) {
         $timestamp_formatted = $this->format_date($row->{$this->series_field}, $grouping);
         if (isset($processed[$timestamp_formatted])) {
-          $processed[$timestamp_formatted]->{$this->value_field}++;
+          if ($this->options['value']['format'] == "raw") {
+             $processed[$timestamp_formatted]->values[] = $row->{$this->value_field};
+          }
+          else if ($this->options['value']['format'] == "count") {
+            $processed[$timestamp_formatted]->{$this->value_field}++;
+          }
+        }
+      }
+      // Average out the values.
+      if ($this->options['value']['format'] == "raw") {
+        foreach ($processed as &$item) {
+          $values = $item->values;
+          if (count($values)) {
+            $item->{$this->value_field} = array_sum($values) / count($values);
+          }
         }
       }
       $this->view->result = array_values($processed);
