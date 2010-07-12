@@ -360,9 +360,16 @@ class flot_views_plugin_style extends views_plugin_style {
     }
 
     // Set colors.
-    $style->colors[0] = $options['colors']['0'];
-    $style->colors[1] = $options['colors']['1'];
-    $style->colors[2] = $options['colors']['2'];
+    if (isset($options['colors']['0'])) {
+        $style->colors[0] = $options['colors']['0'];
+    }
+
+    if (isset($options['colors']['1'])) {
+        $style->colors[1] = $options['colors']['1'];
+    }
+    if (isset($options['colors']['2'])) {
+        $style->colors[2] = $options['colors']['2'];
+    }
 
     $vars['options'] = $style;
   }
