@@ -191,14 +191,15 @@ class flot_views_plugin_style extends views_plugin_style {
       $layer['series'][] = array($value[0], $value[1]);
       $layer['ticks'][$value[0]] = array($value[0], $label[0]);
 
-      if (!isset($layer['range']['min']) || $value[1] < $layer['range']['min']) {
+      if (!isset($layer['range']['min']) || (!empty($value[1]) && $value[1] < $layer['range']['min'])) {
         $layer['range']['min'] = $value[1];
       }
-      if (!isset($layer['range']['max']) || $value[1] > $layer['range']['max']) {
+      if (!isset($layer['range']['max']) || (!empty($value[1]) && $value[1] > $layer['range']['max'])) {
         $layer['range']['max'] = $value[1];
       }
     }
     $layer['series'] = new flotData($layer['series']);
+    
     return $layer;
   }
 
@@ -230,6 +231,8 @@ class flot_views_plugin_style extends views_plugin_style {
           $view->set_arguments($this->view->args);
         }
 
+        //Hack so all points will display.
+        $view->pager['items_per_page'] = 0;
         $view->execute();
         $view->init_style();
         $layer = $this->build_layer($view, $view->result, $view->get_title());
